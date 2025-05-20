@@ -3,23 +3,43 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "next": "15.3.2"
+    "@prisma/client": "^6.8.1",
+    "@shopify/app-bridge": "^3.7.9",
+    "@shopify/app-bridge-react": "^3.7.10",
+    "@shopify/app-bridge-utils": "^3.5.1",
+    "@shopify/polaris": "^12.0.0",
+    "@shopify/polaris-icons": "^7.9.0",
+    "axios": "^1.9.0",
+    "cookies-next": "^4.3.0",
+    "dotenv": "^16.5.0",
+    "express-session": "^1.18.1",
+    "fs-extra": "^11.3.0",
+    "iron-session": "^8.0.4",
+    "jsonwebtoken": "^9.0.2",
+    "mammoth": "^1.9.0",
+    "multer": "^1.4.5-lts.2",
+    "next": "14.0.4",
+    "pdf-parse": "^1.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "tailwindcss": "^3.3.6"
   },
   "devDependencies": {
-    "typescript": "^5",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.3.2",
-    "@eslint/eslintrc": "^3"
+    "@types/node": "^20.10.5",
+    "@types/react": "^18.2.45",
+    "@types/react-dom": "^18.2.18",
+    "autoprefixer": "^10.4.16",
+    "cookie-parser": "^1.4.7",
+    "eslint": "^8.56.0",
+    "eslint-config-next": "14.0.4",
+    "postcss": "^8.4.32",
+    "prisma": "^6.8.1",
+    "typescript": "^5.3.3"
   }
 }

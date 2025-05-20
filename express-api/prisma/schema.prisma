@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Shop {
+  id                String   @id @default(uuid())
+  shopDomain        String   @unique
+  accessToken       String
+  plan              String   @default("free") // free, basic, pro, enterprise
+  isActive          Boolean  @default(true)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  dataRetentionDays Int      @default(30) // for GDPR compliance
+  aiOptOut          Boolean  @default(false) // control AI training usage
+  dataRegion        String   @default("us") // for data sovereignty
+  
+  users             User[]
+  documents         Document[]
+  articles          Article[]
+  auditLogs         AuditLog[]
+}
+
+model User {
+  id          String   @id @default(uuid())
+  shopId      String
+  email       String
+  name        String
+  role        String // owner, admin, editor, viewer
+  active      Boolean  @default(true)
+  lastLogin   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  preferences Json?
+
+  shop        Shop     @relation(fields: [shopId], references: [id])
+
+  @@unique([email, shopId])
+}
+
+model Document {
+  id                  String    @id @default(uuid())
+  shopId              String
+  createdById         String
+  filename            String
+  fileSize            Int
+  contentType         String
+  extractedText       String?   @db.Text
+  status              String    // pending, processing, processed, error, failed, draft, publishing, published
+  processingProgress  Int       @default(0)
+  errorDetails        Json?
+  metadata            Json?
+  language            String?
+  securityScanStatus  String?
+  createdAt           DateTime  @default(now())
+  updatedAt           DateTime  @updatedAt
+  deletedAt           DateTime?
+
+  shop                Shop      @relation(fields: [shopId], references: [id])
+  versions            Version[]
+  articles            Article[]
+}
+
+model Article {
+  id                String    @id @default(uuid())
+  documentId        String
+  shopId            String
+  shopifyId         String?
+  destination       String    // blog, page
+  blogId            String?
+  title             String
+  bodyHtml          String    @db.Text
+  tags              String[]
+  handle            String
+  seoTitle          String?
+  seoDescription    String?
+  status            String    // draft, scheduled, published
+  publishedAt       DateTime?
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  scheduledPublishId String?
+
+  shop              Shop      @relation(fields: [shopId], references: [id])
+  document          Document  @relation(fields: [documentId], references: [id])
+}
+
+model Version {
+  id            String    @id @default(uuid())
+  documentId    String
+  versionNumber Int
+  type          String    // extraction, manual-edit, ai-enhancement, publish
+  content       String    @db.Text
+  createdAt     DateTime  @default(now())
+  createdBy     String
+  metadata      Json?
+  aiTokensUsed  Int?
+  aiModelUsed   String?
+
+  document      Document  @relation(fields: [documentId], references: [id])
+}
+
+model AuditLog {
+  id           String   @id @default(uuid())
+  shopId       String
+  userId       String
+  action       String
+  resourceType String
+  resourceId   String
+  metadata     Json?
+  ipAddress    String
+  userAgent    String
+  createdAt    DateTime @default(now())
+
+  shop         Shop     @relation(fields: [shopId], references: [id])
+}
+
+model Session {
+  id            String    @id @default(uuid())
+  shop          String
+  state         String?   // For OAuth state verification
+  codeVerifier  String?   // For PKCE
+  accessToken   String?
+  scope         String?
+  isOnline      Boolean   @default(false)
+  expiresAt     DateTime?
+  userId        String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([shop])
+}
