@@ -65,16 +65,17 @@ export default function Home() {
     }
   }, [shop, router]);
 
-  // Redirect to login if not authenticated
-  const handleLogin = () => {
-    if (shop) {
-      // In development, go straight to the login endpoint
-      window.location.href = `/auth/login?shop=${shop}`;
-    } else {
-      // If no shop parameter, redirect to login page
-      router.push('/login');
-    }
-  };
+// Redirect to login if not authenticated
+const handleLogin = () => {
+  if (shop) {
+    // Use the API URL for authentication
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+    window.location.href = `${apiUrl}/api/auth/install?shop=${shop}`;
+  } else {
+    // If no shop parameter, redirect to login page
+    router.push('/login');
+  }
+};
 
   if (isLoading) {
     return (
