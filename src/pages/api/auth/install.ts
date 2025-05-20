@@ -26,7 +26,7 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   res.setHeader('Set-Cookie', `state=${state}; Path=/; HttpOnly; SameSite=Lax; Secure`);
   
   // Prepare OAuth URL - use PKCE when possible in production
-  const redirectUri = `${process.env.HOST}/api/auth/callback`;
+  const redirectUri = `${process.env.HOST}/auth/callback`;
   const scopes = process.env.SCOPES || 'write_content,read_content';
   const apiKey = process.env.SHOPIFY_API_KEY;
   

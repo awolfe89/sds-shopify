@@ -36,7 +36,7 @@ export default function Home() {
     const checkAuth = async () => {
       try {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-        const response = await axios.get(`${apiUrl}/api/v1/auth/verify`, {
+        const response = await axios.get(`${apiUrl}/auth/verify`, {
           withCredentials: true
         });
 
@@ -69,7 +69,7 @@ export default function Home() {
   const handleLogin = () => {
     if (shop) {
       // In development, go straight to the login endpoint
-      window.location.href = `/api/auth/login?shop=${shop}`;
+      window.location.href = `/auth/login?shop=${shop}`;
     } else {
       // If no shop parameter, redirect to login page
       router.push('/login');

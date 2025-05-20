@@ -36,9 +36,9 @@ app.use(session({
 }));
 
 // Routes
-app.use('/api/v1/health', healthRouter);
-app.use('/api/v1/upload', uploadRouter);
-app.use('/api/v1/auth', authRouter); // Add this new route
+app.use('/api/health', healthRouter);
+app.use('/api/upload', uploadRouter);
+app.use('/auth', authRouter); // Add this new route
 
 // Error handling
 app.use(errorHandler);

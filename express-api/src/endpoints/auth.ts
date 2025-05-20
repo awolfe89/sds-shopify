@@ -17,7 +17,7 @@ router.get('/shopify/callback', (req, res) => {
   
   // Redirect to the actual callback handler
   const { shop, code, state } = req.query;
-  res.redirect(`/api/v1/auth/callback?shop=${shop}&code=${code}&state=${state}`);
+  res.redirect(`/auth/callback?shop=${shop}&code=${code}&state=${state}`);
 });
 // Logout route
 router.post('/logout', (req, res) => {

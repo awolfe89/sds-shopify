@@ -50,9 +50,9 @@ export default async function handler(
     session.shop = shop;
     await session.save();
     
-    // Redirect to backend auth endpoint
-    const cloudflareUrl = 'https://forge-trailer-archived-vincent.trycloudflare.com';
-    const redirectUrl = `${cloudflareUrl}/api/v1/auth/install?shop=${shop}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+// Redirect to backend auth endpoint
+const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+const redirectUrl = `${apiUrl}/auth/install?shop=${shop}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
     
     console.log('Redirecting to:', redirectUrl);
     res.redirect(redirectUrl);

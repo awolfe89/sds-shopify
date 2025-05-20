@@ -88,8 +88,7 @@ export const handleInstall = async (req: Request, res: Response) => {
       return res.status(500).json({ success: false, error: 'Server configuration error' });
     }
     
-    const redirectUri = 'https://forge-trailer-archived-vincent.trycloudflare.com/auth/callback';
-
+    const redirectUri = `${process.env.HOST}/auth/callback`;
 
     const scopes = process.env.SCOPES || 'write_content,read_content,read_themes,write_themes,read_products,read_orders';
     
@@ -277,7 +276,7 @@ async function exchangeCodeForToken(shop: string, code: string, codeVerifier: st
     
     const apiKey = process.env.SHOPIFY_API_KEY;
     const apiSecret = process.env.SHOPIFY_API_SECRET;
-    const redirectUri = `${process.env.HOST}/api/v1/auth/callback`;
+    const redirectUri = `${process.env.HOST}/auth/callback`;
     
     if (!apiKey || !apiSecret) {
       console.log('Missing API key or secret');

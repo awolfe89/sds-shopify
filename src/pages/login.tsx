@@ -14,7 +14,7 @@ export default function Login() {
       // If shop is in the URL, redirect directly to login endpoint
       const shopDomain = router.query.shop as string;
       localStorage.setItem('shopifyShop', shopDomain);
-      window.location.href = `/api/auth/login?shop=${shopDomain}`;
+      window.location.href = `/auth/login?shop=${shopDomain}`;
     }
   }, [router.query.shop]);
 
@@ -34,7 +34,7 @@ export default function Login() {
     localStorage.setItem('shopifyShop', shopDomain);
     
     // Redirect to login
-    window.location.href = `/api/auth/login?shop=${shopDomain}`;
+    window.location.href = `/auth/login?shop=${shopDomain}`;
   };
 
   return (

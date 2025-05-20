@@ -56,7 +56,7 @@ const sessionOptions = {
       
       // Prepare redirect to Express backend
       const backendUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
-      const redirectUrl = `${backendUrl}/api/v1/auth/install?shop=${shop}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
+      const redirectUrl = `${backendUrl}/auth/install?shop=${shop}&code_challenge=${codeChallenge}&code_challenge_method=S256`;
       
       res.redirect(redirectUrl);
     } catch (error) {
